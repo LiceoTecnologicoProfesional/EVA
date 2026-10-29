@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Galaxia morada</title>
+    <style>
+      :root {
+        color-scheme: dark;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        background: #05010f;
+        font-family: "Segoe UI", system-ui, sans-serif;
+      }
+
+      canvas {
+        display: block;
+        width: 100%;
+        height: 100%;
+      }
+
+      .caption {
+        position: fixed;
+        left: 1rem;
+        bottom: 1rem;
+        z-index: 2;
+        margin: 0;
+        color: rgba(230, 210, 255, 0.55);
+        font-size: 0.78rem;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        pointer-events: none;
+      }
+    </style>
+  </head>
+  <body>
+    <canvas id="galaxy" aria-label="Animación de galaxia morada"></canvas>
+    <p class="caption">Galaxia · toque o mueva el cursor</p>
+    <script>
+      (() => {
+        const canvas = document.getElementById("galaxy");
+        const ctx = canvas.getContext("2d");
+        const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+        let w = 0;
+        let h = 0;
+        let dpr = 1;
+        let stars = [];
+        let dust = [];
+        let t = 0;
+        let mx = 0.5;
+        let my = 0.5;
+        let tx = 0.5;
+        let ty = 0.5;
+
+        const rand = (a, b) => a + Math.random() * (b - a);
+
+        const resize = () => {
+          dpr = Math.min(window.devicePixelRatio || 1, 2);
+          w = window.innerWidth;
+          h = window.innerHeight;
+          canvas.width = Math.floor(w * dpr);
+          canvas.height = Math.floor(h * dpr);
+          ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+          seed();
+        };
+
+        const seed = () => {
+          const area = w * h;
+          const nStars = Math.min(420, Math.floor(area / 2800));
+          const nDust = Math.min(180, Math.floor(area / 7000));
+          stars = Array.from({ length: nStars }, () => {
+            const arm = Math.floor(Math.random() * 4);
+            return {
+              arm,
+              r: rand(18, Math.min(w, h) * 0.48),
+              a: rand(0, Math.PI * 2),
+              size: rand(0.6, 2.4),
+              tw: rand(0.4, 1.6),
+              phase: rand(0, Math.PI * 2),
+              speed: rand(0.08, 0.28),
+              hue: rand(265, 310),
+            };
+          });
+          dust = Array.from({ length: nDust }, () => ({
+            x: rand(0, w),
+            y: rand(0, h),
+            r: rand(40, 160),
+            a: rand(0.03, 0.12),
+            drift: rand(-0.12, 0.12),
+            hue: rand(270, 300),
+          }));
+        };
+
+        const pointer = (clientX, clientY) => {
+          tx = clientX / w;
+          ty = clientY / h;
+        };
+
+        window.addEventListener("pointermove", (e) => pointer(e.clientX, e.clientY));
+        window.addEventListener("touchmove", (e) => {
+          if (!e.touches[0]) return;
+          pointer(e.touches[0].clientX, e.touches[0].clientY);
+        }, { passive: true });
+
+        const drawBg = () => {
+          const g = ctx.createRadialGradient(
+            w * (0.5 + (mx - 0.5) * 0.08),
+            h * (0.48 + (my - 0.5) * 0.08),
+            20,
+            w * 0.5,
+            h * 0.5,
+            Math.max(w, h) * 0.75
+          );
+          g.addColorStop(0, "#3a1768");
+          g.addColorStop(0.28, "#1c0a3d");
+          g.addColorStop(0.62, "#0b041c");
+          g.addColorStop(1, "#04010c");
+          ctx.fillStyle = g;
+          ctx.fillRect(0, 0, w, h);
+
+          dust.forEach((d) => {
+            d.x += d.drift;
+            if (d.x < -d.r) d.x = w + d.r;
+            if (d.x > w + d.r) d.x = -d.r;
+            const cloud = ctx.createRadialGradient(d.x, d.y, 0, d.x, d.y, d.r);
+            cloud.addColorStop(0, `hsla(${d.hue}, 90%, 62%, ${d.a})`);
+            cloud.addColorStop(1, "hsla(280, 80%, 20%, 0)");
+            ctx.fillStyle = cloud;
+            ctx.beginPath();
+            ctx.arc(d.x, d.y, d.r, 0, Math.PI * 2);
+            ctx.fill();
+          });
+        };
+
+        const drawCore = () => {
+          const cx = w * (0.5 + (mx - 0.5) * 0.05);
+          const cy = h * (0.5 + (my - 0.5) * 0.05);
+          const core = ctx.createRadialGradient(cx, cy, 0, cx, cy, Math.min(w, h) * 0.22);
+          core.addColorStop(0, "rgba(255, 230, 255, 0.95)");
+          core.addColorStop(0.18, "rgba(210, 150, 255, 0.55)");
+          core.addColorStop(0.45, "rgba(120, 60, 220, 0.22)");
+          core.addColorStop(1, "rgba(40, 10, 80, 0)");
+          ctx.fillStyle = core;
+          ctx.beginPath();
+          ctx.arc(cx, cy, Math.min(w, h) * 0.22, 0, Math.PI * 2);
+          ctx.fill();
+        };
+
+        const drawStars = () => {
+          const cx = w * 0.5;
+          const cy = h * 0.5;
+          const pullX = (mx - 0.5) * 40;
+          const pullY = (my - 0.5) * 40;
+
+          stars.forEach((s) => {
+            if (!reduce) s.a += s.speed * 0.012;
+            const spiral = s.a + s.arm * (Math.PI / 2) + s.r * 0.012;
+            const x = cx + Math.cos(spiral) * s.r + pullX * (s.r / 300);
+            const y = cy + Math.sin(spiral) * s.r * 0.58 + pullY * (s.r / 300);
+            const twinkle = 0.45 + 0.55 * Math.sin(t * s.tw + s.phase);
+            ctx.beginPath();
+            ctx.fillStyle = `hsla(${s.hue}, 95%, ${68 + twinkle * 18}%, ${0.35 + twinkle * 0.55})`;
+            ctx.arc(x, y, s.size * (0.7 + twinkle * 0.5), 0, Math.PI * 2);
+            ctx.fill();
+          });
+        };
+
+        const frame = () => {
+          t += 0.016;
+          mx += (tx - mx) * 0.04;
+          my += (ty - my) * 0.04;
+          drawBg();
+          drawCore();
+          drawStars();
+          requestAnimationFrame(frame);
+        };
+
+        window.addEventListener("resize", resize);
+        resize();
+        requestAnimationFrame(frame);
+      })();
+    </script>
+  </body>
+</html>

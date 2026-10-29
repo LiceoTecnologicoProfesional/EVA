@@ -1,0 +1,30 @@
+Carpeta lista para GitHub Pages
+================================
+
+Suba TODO el contenido de esta carpeta como raíz del repositorio
+(index.html, config.js, Code.gs, estilos, scripts, logo e iconos).
+
+Publicar
+--------
+1. Cree un repositorio en GitHub y suba estos archivos.
+2. Settings → Pages → Branch: main → Folder: / (root) → Save.
+3. La URL será: https://USUARIO.github.io/NOMBRE-REPO/
+
+Google Sheets (base de datos)
+-----------------------------
+Code.gs NO se ejecuta en GitHub. Debe pegarlo en:
+Google Sheets → Extensiones → Apps Script → pegar Code.gs → Guardar
+→ Ejecutar setup → Implementar como Aplicación web (Cualquier persona).
+
+La URL /exec ya está en config.js (LITPA_SHEETS_URL).
+Si vuelve a implementar, actualice config.js y suba de nuevo ese archivo.
+
+Archivos importantes
+--------------------
+- index.html          página principal
+- config.js           URL de Apps Script
+- Code.gs             backend (pegar en Sheets)
+- preguntas.js        preguntas y lista de maestros
+- logo.png / logo.webp, favicon e iconos PWA
+
+No suba la carpeta "No uso" del proyecto.

@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#882028" />
+    <meta name="description" content="Portafolio LITPA: cuestionario anónimo de evaluación docente." />
+    <title>Portafolio · LITPA</title>
+    <link rel="icon" type="image/png" href="assets/favicon.png" />
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="LITPA" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body class="is-booting" data-view="inicio">
+    <div class="page-watermark" aria-hidden="true">
+      <div class="page-watermark-inner">
+        <picture>
+          <source srcset="assets/logo.webp" type="image/webp" />
+          <img src="assets/logo.png" width="240" height="298" alt="" />
+        </picture>
+        <p class="page-watermark-name">Liceo Tecnológico Profesional de Palencia</p>
+        <p class="page-watermark-kicker">LITPA</p>
+      </div>
+    </div>
+
+    <div class="boot-screen" id="boot-screen" role="status" aria-live="polite" aria-label="Liceo Tecnológico Profesional de Palencia">
+      <div class="boot-inner">
+        <div class="boot-scene" aria-hidden="true">
+          <div class="boot-3d">
+            <div class="boot-3d-inner">
+              <div class="boot-logo-wrap">
+                <picture>
+                  <source srcset="assets/logo.webp" type="image/webp" />
+                  <img
+                    class="boot-logo"
+                    src="assets/logo.png"
+                    width="240"
+                    height="298"
+                    alt=""
+                    decoding="async"
+                    fetchpriority="high"
+                  />
+                </picture>
+              </div>
+            </div>
+            <div class="boot-shadow"></div>
+          </div>
+        </div>
+        <p class="boot-name">Liceo Tecnológico Profesional de Palencia</p>
+        <p class="boot-tag">Innovando el futuro</p>
+      </div>
+    </div>
+
+    <div class="boot-screen admin-hello" id="admin-hello" hidden role="status" aria-live="polite" aria-label="Bienvenido o bienvenida al panel de administración">
+      <div class="boot-inner">
+        <div class="boot-scene" aria-hidden="true">
+          <div class="boot-3d">
+            <div class="boot-3d-inner">
+              <div class="boot-logo-wrap">
+                <picture>
+                  <source srcset="assets/logo.webp" type="image/webp" />
+                  <img
+                    class="boot-logo"
+                    src="assets/logo.png"
+                    width="240"
+                    height="298"
+                    alt=""
+                    decoding="async"
+                  />
+                </picture>
+              </div>
+            </div>
+            <div class="boot-shadow"></div>
+          </div>
+        </div>
+        <p class="boot-hello">BIENVENIDO/A</p>
+        <p class="boot-kicker">LITPA</p>
+        <p class="boot-name">Panel de administración</p>
+        <p class="boot-tag">Evaluación docente</p>
+      </div>
+    </div>
+
+    <canvas id="honey-field" class="honey-field" aria-hidden="true"></canvas>
+
+    <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <div class="brand">
+          <picture class="brand-logo-hit" id="admin-trigger">
+            <source srcset="assets/logo.webp" type="image/webp" />
+            <img
+              class="brand-logo"
+              src="assets/logo.png"
+              width="80"
+              height="99"
+              alt="Escudo LITPA"
+              decoding="async"
+              fetchpriority="high"
+              draggable="false"
+            />
+          </picture>
+          <div class="brand-text" data-open-view="inicio" role="button" tabindex="0" title="Volver">
+            <p class="brand-kicker">LITPA</p>
+            <p class="brand-school">Liceo Tecnológico Profesional de Palencia</p>
+            <h1 id="page-title">Portafolio</h1>
+            <p class="brand-sub" id="page-sub">Cuestionario anónimo de evaluación</p>
+          </div>
+        </div>
+        <button type="button" class="back-link" data-open-view="inicio">Volver</button>
+        <div class="sent-stat">
+          <span>Enviados</span>
+          <strong id="sent-count">—</strong>
+        </div>
+      </div>
+    </header>
+
+    <div class="progress-wrap" aria-hidden="true">
+      <div class="progress-bar" id="progress-bar"></div>
+    </div>
+
+    <main id="contenido">
+      <section class="view is-active" data-view-panel="inicio" aria-labelledby="hub-title">
+        <h2 id="hub-title" class="visually-hidden">Portafolio LITPA</h2>
+        <div class="hub-grid">
+          <button type="button" class="hub-card" data-open-view="cuestionario">
+            <span class="hub-kicker">Evaluación</span>
+            <strong>Cuestionario</strong>
+            <p>Encuesta anónima a docentes, con comentario opcional.</p>
+          </button>
+          <button type="button" class="hub-card" id="qr-open">
+            <span class="hub-kicker">Compartir</span>
+            <strong>Generar QR</strong>
+            <p>Código QR para compartir este cuestionario.</p>
+          </button>
+        </div>
+        <button type="button" class="install-entry" id="install-open">
+          Añadir a escritorio o pantalla de inicio
+        </button>
+      </section>
+
+      <section class="view" data-view-panel="cuestionario" hidden>
+      <section class="panel intro" aria-labelledby="intro-title">
+        <h2 id="intro-title">Antes de comenzar</h2>
+        <p>
+          Este es un cuestionario general. No se pide nombre, grupo ni ningún dato
+          que identifique al alumno: el envío es confidencial.
+        </p>
+        <ul class="intro-notes">
+          <li>Marque <strong>Sí</strong> o <strong>No</strong> en cada pregunta cerrada.</li>
+          <li>Complete las preguntas cerradas para enviar.</li>
+          <li>Hay un espacio para sugerir cómo hacer la clase más amena, y al final un comentario u observación, si lo desea. No escriba nombres.</li>
+        </ul>
+      </section>
+
+      <form id="eval-form" novalidate autocomplete="off">
+        <section class="panel questions" id="cuestionario" aria-labelledby="preguntas-title">
+          <div class="questions-head">
+            <h2 id="preguntas-title">Cuestionario</h2>
+            <p class="count" id="progress-label" aria-live="polite">0 de 17 respondidas</p>
+          </div>
+
+          <div class="maestro-panel" id="maestro-panel" aria-labelledby="maestro-pick-title"></div>
+
+          <ol class="question-list" id="question-list"></ol>
+          <noscript>
+            <p class="submit-hint">Active JavaScript para cargar y responder el cuestionario.</p>
+          </noscript>
+        </section>
+
+        <section class="panel comment-panel" aria-labelledby="comentario-title">
+          <h2 id="comentario-title">Otras sugerencias u observaciones</h2>
+          <label class="field">
+            <span>Opcional y anónimo <em>(no escriba su nombre ni el de otras personas)</em></span>
+            <textarea
+              name="observacion"
+              maxlength="2000"
+              rows="5"
+              placeholder="Escriba aquí otras sugerencias u observaciones."
+            ></textarea>
+          </label>
+        </section>
+
+        <div class="submit-bar">
+          <p class="submit-hint" id="form-status" role="status"></p>
+          <button type="submit" class="btn-submit" id="submit-btn">Enviar evaluación</button>
+        </div>
+      </form>
+      </section>
+
+      <section class="view" data-view-panel="admin" hidden aria-labelledby="admin-title">
+        <section class="panel">
+          <div class="questions-head">
+            <h2 id="admin-title">Administración</h2>
+            <p class="count" id="admin-save-state">Guardado en este dispositivo</p>
+          </div>
+          <p class="horario-lead">
+            Puede editar el cuestionario. Los cambios se ven en la ventana pública
+            y quedan en este navegador.
+          </p>
+          <div class="admin-actions">
+            <button type="button" class="admin-btn" id="admin-export">Exportar JSON</button>
+            <label class="admin-btn admin-file">
+              Importar JSON
+              <input type="file" id="admin-import" accept="application/json,.json" />
+            </label>
+          </div>
+          <form id="admin-pass-form" class="admin-pass" autocomplete="off">
+            <p class="admin-label">Cambiar contraseña</p>
+            <div class="admin-pass-row">
+              <label class="field">
+                <span>Nueva contraseña</span>
+                <input type="password" id="admin-new-pass" minlength="4" required />
+              </label>
+              <label class="field">
+                <span>Confirmar</span>
+                <input type="password" id="admin-new-pass-2" minlength="4" required />
+              </label>
+              <button type="submit" class="admin-btn admin-btn-solid">Guardar clave</button>
+            </div>
+            <p class="submit-hint" id="admin-pass-msg" role="status"></p>
+          </form>
+        </section>
+
+        <div class="plan-switch admin-section-switch" id="admin-section-switch" role="tablist" aria-label="Sección de administración">
+          <button type="button" class="nav-tab is-active" role="tab" aria-selected="true" data-admin-section="cuestionario">Cuestionario</button>
+          <button type="button" class="nav-tab" role="tab" aria-selected="false" data-admin-section="resultados">Resultados</button>
+        </div>
+
+        <section class="panel" data-admin-panel="cuestionario" role="tabpanel">
+          <div class="questions-head">
+            <h2>Preguntas del cuestionario</h2>
+            <p class="count" id="admin-q-count">0 preguntas</p>
+          </div>
+          <p class="horario-lead">
+            Cambie el texto, el tipo, el orden, o añada y quite preguntas. No pida
+            nombres: el envío debe seguir siendo anónimo.
+          </p>
+          <div class="admin-actions">
+            <button type="button" class="admin-btn admin-btn-solid" id="admin-add-q">Añadir pregunta</button>
+            <button type="button" class="admin-btn admin-btn-warn" id="admin-reset-q">Restaurar preguntas originales</button>
+          </div>
+          <div id="admin-questions"></div>
+        </section>
+
+        <section class="panel" data-admin-panel="resultados" role="tabpanel" hidden>
+          <div class="questions-head">
+            <h2>Resultados del cuestionario</h2>
+            <p class="count" id="resultados-total">Cargando…</p>
+          </div>
+          <div class="admin-actions">
+            <button type="button" class="admin-btn admin-btn-solid" id="resultados-refresh">Actualizar</button>
+            <button type="button" class="admin-btn" id="resultados-export">Exportar a Excel (.csv)</button>
+            <button type="button" class="admin-btn" id="resultados-print">Imprimir / PDF</button>
+          </div>
+          <div id="resultados-chart" class="resultados-chart apa-report"></div>
+        </section>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>Liceo Tecnológico Profesional de Palencia · Portafolio LITPA</p>
+    </footer>
+
+    <dialog class="done-dialog" id="admin-lock">
+      <div class="done-inner">
+        <p class="done-kicker">LITPA</p>
+        <h2>Acceso restringido</h2>
+        <p>Ingrese la contraseña de administración.</p>
+        <form id="admin-lock-form" autocomplete="off">
+          <label class="field">
+            <span>Contraseña</span>
+            <input type="password" id="admin-lock-pass" required minlength="1" />
+          </label>
+          <p class="submit-hint" id="admin-lock-msg" role="status"></p>
+          <div class="admin-lock-actions">
+            <button type="submit" class="btn-submit">Entrar</button>
+            <button type="button" class="admin-btn" id="admin-lock-cancel">Cancelar</button>
+          </div>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog class="done-dialog" id="done-dialog">
+      <div class="done-inner">
+        <p class="done-kicker">LITPA</p>
+        <h2>Evaluación registrada</h2>
+        <p id="done-summary">Su respuesta se guardó de forma anónima.</p>
+        <form method="dialog">
+          <button type="submit" class="btn-submit">Cerrar</button>
+        </form>
+      </div>
+    </dialog>
+
+    <dialog class="done-dialog install-dialog" id="install-dialog">
+      <div class="done-inner">
+        <p class="done-kicker">LITPA</p>
+        <h2>Añadir a su dispositivo</h2>
+        <p id="install-lead">
+          Sirve en Safari, Chrome, Brave, Edge, Firefox y Samsung Internet.
+          Abra la página como enlace web (no como archivo de Descargas) y siga
+          su dispositivo.
+        </p>
+        <div class="install-guides" id="install-guides">
+          <section class="install-os" data-os="ios">
+            <h3>iPhone y iPad</h3>
+            <ol class="intro-notes install-steps">
+              <li><strong>Safari, Chrome, Brave, Edge o Firefox:</strong> pulse <strong>Compartir</strong> (cuadrado con flecha, abajo).</li>
+              <li>Deslice y elija <strong>Añadir a pantalla de inicio</strong>. En Safari es la opción más clara.</li>
+              <li>Si no aparece, pulse <strong>Más</strong> en esa lista y actívela. Confirme con <strong>Añadir</strong>.</li>
+            </ol>
+          </section>
+          <section class="install-os" data-os="android">
+            <h3>Android</h3>
+            <ol class="intro-notes install-steps">
+              <li><strong>Chrome, Edge, Firefox o Samsung Internet:</strong> menú <strong>⋮</strong> (arriba a la derecha) → <strong>Añadir a pantalla de inicio</strong> o <strong>Instalar aplicación</strong>.</li>
+              <li><strong>Brave:</strong> el mismo menú suele estar <strong>abajo a la derecha</strong>. Si no ve la opción, ábrala en <strong>Personalizar menú</strong> y actívela.</li>
+              <li>Si el teléfono lo pide, permita a esa app crear accesos directos (Ajustes → Aplicaciones → el navegador → Permisos).</li>
+            </ol>
+          </section>
+          <section class="install-os" data-os="desktop">
+            <h3>Computadora</h3>
+            <ol class="intro-notes install-steps">
+              <li><strong>Chrome, Edge o Brave:</strong> menú <strong>⋮</strong> o <strong>⋯</strong> → <strong>Instalar LITPA</strong> o <strong>Instalar página como aplicación</strong>. Si sale <strong>Instalar ahora</strong> aquí, úselo.</li>
+              <li><strong>Safari en Mac:</strong> Archivo → <strong>Añadir al Dock</strong>, o Compartir → <strong>Añadir al Dock</strong>.</li>
+              <li><strong>Firefox</strong> u otro: descargue el <strong>acceso directo</strong> y arrástrelo al escritorio o a la barra de tareas.</li>
+            </ol>
+          </section>
+        </div>
+        <p class="submit-hint" id="install-status" role="status"></p>
+        <div class="install-actions">
+          <button type="button" class="btn-submit" id="install-native" hidden>Instalar ahora</button>
+          <button type="button" class="admin-btn" id="install-shortcut">Descargar acceso directo</button>
+          <button type="button" class="admin-btn" id="install-copy">Copiar enlace</button>
+          <form method="dialog">
+            <button type="submit" class="admin-btn">Cerrar</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <dialog class="done-dialog" id="qr-dialog">
+      <div class="done-inner">
+        <p class="done-kicker">LITPA</p>
+        <h2>Código QR</h2>
+        <p>Escanee para abrir el cuestionario:</p>
+        <img id="qr-img" alt="Código QR" style="display:block;margin:1rem auto;max-width:200px;" />
+        <form method="dialog">
+          <button type="submit" class="btn-submit">Cerrar</button>
+        </form>
+      </div>
+    </dialog>
+
+    <script src="config.js"></script>
+    <script src="preguntas.js"></script>
+    <script src="app.js" defer></script>
+    <script src="admin.js" defer></script>
+    <script src="miel.js" defer></script>
+    <script src="install.js" defer></script>
+    <script src="temas.js" defer></script>
+  </body>
+</html>
